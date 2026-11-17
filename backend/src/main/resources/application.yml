@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: delivery-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/delivery}
+    username: ${DB_USER:delivery}
+    password: ${DB_PASSWORD:delivery}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: ${DDL_AUTO:update}
+
+server:
+  port: 8080
+  error:
+    include-message: never
+
+app:
+  jwt:
+    # Base64, 256 bits minimum. TOUJOURS surcharger via JWT_SECRET en production.
+    secret: ${JWT_SECRET:xmYYxlxPvFTRtCkdv3h8EcSmMDSZGzGj5r5fzMBr7Vtg3cpaKuArR7iSR8NG4ypm}
+    expiration-minutes: 480
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:4200}
+  seed:
+    enabled: ${SEED_DATA:true}
+  assignment:
+    proximity-weight: 0.5
+    load-weight: 0.3
+    capacity-weight: 0.2
+    urgent-proximity-boost: 1.5
+    max-proximity-km: 30
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
