@@ -12,3 +12,8 @@ frontend/.angular/
 .DS_Store
 # Secrets
 .env
+
+backend/.project
+backend/.classpath
+backend/.settings/
+backend/.factorypath

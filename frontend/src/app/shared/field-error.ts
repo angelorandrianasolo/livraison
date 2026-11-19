@@ -21,6 +21,7 @@ export class FieldError {
     if (e['max']) return `La valeur doit être inférieure ou égale à ${(e['max'] as { max: number }).max}.`;
     if (e['minlength']) return `Minimum ${(e['minlength'] as { requiredLength: number }).requiredLength} caractères.`;
     if (e['maxlength']) return `Maximum ${(e['maxlength'] as { requiredLength: number }).requiredLength} caractères.`;
+    if (e['pattern']) return 'Caractères autorisés : lettres, chiffres, point, tiret et underscore.';
     return 'Valeur invalide.';
   }
 }

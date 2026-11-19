@@ -22,12 +22,14 @@ export class AuthService {
   readonly token = computed(() => this._session()?.token ?? null);
 
   login(username: string, password: string): Observable<Session> {
-    return this.http.post<Session>('/api/auth/login', { username, password }).pipe(
-      tap((session) => {
-        this._session.set(session);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
-      }),
-    );
+    return this.http
+      .post<Session>('/api/auth/login', { username, password })
+      .pipe(tap((session) => this.store(session)));
+  }
+
+  /** Crée un compte (rôle consultation) et ouvre directement la session. */
+  register(body: { fullName: string; username: string; password: string }): Observable<Session> {
+    return this.http.post<Session>('/api/auth/register', body).pipe(tap((session) => this.store(session)));
   }
 
   logout(): void {
@@ -39,6 +41,11 @@ export class AuthService {
   hasRole(...roles: Role[]): boolean {
     const current = this.role();
     return current !== null && roles.includes(current);
+  }
+
+  private store(session: Session): void {
+    this._session.set(session);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
   }
 
   private restore(): Session | null {
