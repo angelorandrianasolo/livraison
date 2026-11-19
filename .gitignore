@@ -17,10 +17,3 @@ backend/.project
 backend/.classpath
 backend/.settings/
 backend/.factorypath
-
-
-git add .
-git commit -m "feat: inscription et mot de passe affichable"
-git remote add origin https://github.com/angelorandrianasolo/livraison.git
-git branch -M main
-git push -u origin main
